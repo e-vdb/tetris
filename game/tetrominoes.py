@@ -53,6 +53,7 @@ class Tetromino:
     def check_valid_move(self, shift_x, shift_y):
         for piece in self.pieces:
             x, y = self.get_one_piece_position(piece)
+
             if int(y + shift_y // 20) >= 0 and self.cell[int(y + shift_y // 20)][int(x + shift_x//20)] == 1:
                 return False
         return True
