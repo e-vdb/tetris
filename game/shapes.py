@@ -121,7 +121,7 @@ class ShapeZ:
         self.pieces = []
 
     def init_piece(self):
-        init_x = randint(0, 8) * 20
+        init_x = randint(0, 7) * 20
         init_y = -2 * 20
 
         for i in range(self.height):
@@ -155,7 +155,7 @@ class ShapeS:
         self.pieces = []
 
     def init_piece(self):
-        init_x = randint(1, 9) * 20
+        init_x = randint(2, 9) * 20
         init_y = -2 * 20
 
         for i in range(self.height):
