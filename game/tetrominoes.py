@@ -7,7 +7,6 @@ from shapes import ShapeL, ShapeSquare, ShapeZ, ShapeI, ShapeJ, ShapeS, ShapeT
 Refresh_Sec = 0.5
 Ball_min_movement = 1
 all_shapes = [ShapeI, ShapeL, ShapeJ, ShapeSquare, ShapeZ, ShapeS, ShapeT]
-
 ROWS_COUNT = 22
 
 
@@ -16,11 +15,9 @@ class Tetromino:
 
     def __init__(self, can, cell):
         """Initialize class."""
-        self.length = 4
-        self.width = 20
         self.can = can
         self.cell = cell
-        self.shape = choice(all_shapes)(self.can)
+        self.shape = choice(all_shapes)(self.can, self.cell)
         self.shape.init_piece()
         self.pieces = self.shape.pieces
         self.piece_in_motion = False
