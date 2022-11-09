@@ -1,8 +1,11 @@
 """Provide class for tetris game."""
 
 import itertools
+
+
 from tetrominoes import Tetromino
 from exceptions import GameOver
+
 COLUMNS = 10
 ROWS = 22
 WIDTH = 20
@@ -15,7 +18,6 @@ class Tetris:
     def __init__(self, can):
         """Build the class."""
         self.can = can
-
         self.game_over = False
         self.cell = self.init_cell()
         self.draw_grid()
