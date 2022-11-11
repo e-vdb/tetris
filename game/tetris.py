@@ -2,7 +2,7 @@
 
 import itertools
 
-
+from player import Player
 from tetrominoes import Tetromino
 from exceptions import GameOver
 
@@ -15,12 +15,14 @@ LENGTH = 20
 class Tetris:
     """Class for Tetris."""
 
-    def __init__(self, can):
+    def __init__(self, can, score):
         """Build the class."""
         self.can = can
         self.game_over = False
         self.cell = self.init_cell()
         self.draw_grid()
+        self.player = Player()
+        self.score = score
 
     def init_cell(self):
         """Initialise the cell table."""
@@ -72,12 +74,16 @@ class Tetris:
 
     def check_row(self):
         """Check if there are full rows."""
+        full_rows: int = 0
         for count, row in enumerate(self.cell):
             if sum(row) == COLUMNS:
                 print(f'row {count} is full')
                 self.find_all_items_in_canvas_above_row(count)
                 self.cell.pop(count)
                 self.cell.insert(0, [0 for _ in range(COLUMNS)])
+                full_rows += 1
+        self.player.update_score(lines=full_rows)
+        self.score.update(self.player.score)
 
     def get_item_position(self, item):
         """Get cell position of an item."""
