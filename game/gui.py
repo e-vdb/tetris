@@ -3,6 +3,7 @@
 import tkinter as tk
 from tetris import Tetris
 from stop_watch import StopWatch
+from score import Score
 
 
 def start_game(tetris: Tetris, sw: StopWatch):
@@ -11,11 +12,12 @@ def start_game(tetris: Tetris, sw: StopWatch):
     tetris.game()
 
 
-def reset_game(tetris: Tetris, sw: StopWatch):
+def reset_game(tetris: Tetris, sw: StopWatch, score: Score):
     """Reset the game."""
     sw.Stop()
     sw.Reset()
     tetris.reinit()
+    score.reset()
 
 
 COLUMNS = 10
@@ -24,15 +26,20 @@ WIDTH = 20
 LENGTH = 20
 
 root = tk.Tk()
+
 sw = StopWatch(root)
 sw.grid(row=0, column=0, columnspan=2)
 
+score = Score(root)
+score.grid(row=1, column=0, columnspan=2)
+
+
 main_frame = tk.Frame(root)
-main_frame.grid(row=1, column=1)
+main_frame.grid(row=2, column=1)
 canvas = tk.Canvas(main_frame, width=500, height=500)
 canvas.grid(row=1, column=2)
 
-tetris = Tetris(canvas)
+tetris = Tetris(canvas, score)
 
 button_frame = tk.Frame(root)
 button_frame.grid(row=0, column=0)
@@ -45,7 +52,7 @@ start_button.grid(row=0, column=0)
 stop_button = tk.Button(
     button_frame,
     text='Reset',
-    command=lambda: reset_game(tetris, sw)
+    command=lambda: reset_game(tetris, sw, score)
 )
 stop_button.grid(row=1, column=0)
 
