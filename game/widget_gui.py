@@ -11,6 +11,7 @@ class IntValue(tk.Frame):
         tk.Frame.__init__(self, parent, kw)
         self.value = tk.IntVar()
         self.value.set(init_value)
+        self.init_value = init_value
 
         self.lab = tk.Label(self, text=label_text)
         self.lab.pack(fill=tk.X, expand=tk.NO, pady=2, padx=2)
@@ -23,7 +24,7 @@ class IntValue(tk.Frame):
 
     def reset(self):
         """Reset the value."""
-        self.value.set(0)
+        self.value.set(self.init_value)
 
     def get(self):
         """Get the value."""

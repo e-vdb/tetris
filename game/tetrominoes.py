@@ -4,8 +4,7 @@ from random import choice
 import time
 from shapes import ShapeL, ShapeSquare, ShapeZ, ShapeI, ShapeJ, ShapeS, ShapeT
 
-Refresh_Sec = 0.5
-Ball_min_movement = 1
+
 all_shapes = [ShapeI, ShapeL, ShapeJ, ShapeSquare, ShapeZ, ShapeS, ShapeT]
 ROWS_COUNT = 22
 
@@ -13,11 +12,13 @@ ROWS_COUNT = 22
 class Tetromino:
     """Class for tetromino."""
 
-    def __init__(self, can, cell):
+    def __init__(self, can, cell, level):
         """Initialize class."""
+        refresh_time = {1: 0.5, 2: 0.4, 3: 0.3, 4: 0.2, 5: 0.1}
         self.can = can
         self.cell = cell
-        self.shape = choice(all_shapes)(self.can, self.cell)
+        self.refresh_sec = refresh_time[level]
+        self.shape = choice(all_shapes)(self.can, self.cell, self.refresh_sec)
         self.shape.init_piece()
         self.pieces = self.shape.pieces
         self.piece_in_motion = False
@@ -56,7 +57,7 @@ class Tetromino:
             for piece in reversed(self.pieces):
                 self.can.move(piece, self.shift_x, self.shift_y)
             self.can.update()
-            time.sleep(Refresh_Sec)
+            time.sleep(self.refresh_sec)
         else:
             self.piece_in_motion = False
         xmin, ymin, xmax, ymax = self.get_position()

@@ -13,13 +13,14 @@ def start_game(tetris: Tetris, sw: StopWatch):
 
 
 def reset_game(tetris: Tetris, sw: StopWatch, score: IntValue,
-               lines: IntValue) -> None:
+               lines: IntValue, level: IntValue) -> None:
     """Reset the game."""
     sw.Stop()
     sw.Reset()
     tetris.reinit()
     score.reset()
     lines.reset()
+    level.reset()
 
 
 COLUMNS = 10
@@ -59,7 +60,7 @@ start_button.grid(row=0, column=0)
 stop_button = tk.Button(
     button_frame,
     text='Reset',
-    command=lambda: reset_game(tetris, sw, score)
+    command=lambda: reset_game(tetris, sw, score, lines, level)
 )
 stop_button.grid(row=1, column=0)
 
