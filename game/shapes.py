@@ -3,18 +3,18 @@
 from random import randint, choice
 from exceptions import GameOver
 import time
-Refresh_Sec = 0.5
 
 
 class Shape:
     """Parent class for all shapes."""
 
-    def __init__(self, cell, can, width=20):
+    def __init__(self, cell, can, refresh_sec, width=20):
         """Initialize class."""
         self.cell = cell
         self.can = can
         self.pieces = []
         self.width = width
+        self.refresh_sec = refresh_sec
 
     def check_init_position(self, coords):
         """
@@ -46,15 +46,15 @@ class Shape:
                 self.can.create_rectangle(x * 20, y * 20, (x + 1) * 20,
                                           (y + 1) * 20, fill=color))
         self.can.update()
-        time.sleep(Refresh_Sec)
+        time.sleep(self.refresh_sec)
 
 
 class ShapeI(Shape):
     """Class for shape I."""
 
-    def __init__(self, can, cell):
+    def __init__(self, can, cell, refresh_sec):
         """Initialize shape I."""
-        super(ShapeI, self).__init__(cell, can)
+        super(ShapeI, self).__init__(cell, can, refresh_sec)
         self.color = 'cyan'
 
         self.rotation = {
@@ -84,9 +84,9 @@ class ShapeI(Shape):
 class ShapeL(Shape):
     """Class for shape L."""
 
-    def __init__(self, can, cell):
+    def __init__(self, can, cell, refresh_sec):
         """Initialize shape L."""
-        super(ShapeL, self).__init__(cell, can)
+        super(ShapeL, self).__init__(cell, can, refresh_sec)
         self.color = 'orange'
         self.angle = choice([0, 90])
         self.rotation = {
@@ -117,9 +117,9 @@ class ShapeL(Shape):
 class ShapeJ(Shape):
     """Class for shape J."""
 
-    def __init__(self, can, cell):
+    def __init__(self, can, cell, refresh_sec):
         """Initialize shape J."""
-        super(ShapeJ, self).__init__(cell, can)
+        super(ShapeJ, self).__init__(cell, can, refresh_sec)
         self.color = 'blue'
 
         self.rotation = {
@@ -154,9 +154,9 @@ class ShapeJ(Shape):
 class ShapeT(Shape):
     """Class for shape T."""
 
-    def __init__(self, can, cell):
+    def __init__(self, can, cell, refresh_sec):
         """Initialize shape T."""
-        super(ShapeT, self).__init__(cell, can)
+        super(ShapeT, self).__init__(cell, can, refresh_sec)
         self.color = 'violet'
         self.angle = 0
         self.rotation = {
@@ -190,9 +190,9 @@ class ShapeT(Shape):
 class ShapeZ(Shape):
     """Class for shape Z."""
 
-    def __init__(self, can, cell):
+    def __init__(self, can, cell, refresh_sec):
         """Initialize shape Z."""
-        super(ShapeZ, self).__init__(cell, can)
+        super(ShapeZ, self).__init__(cell, can, refresh_sec)
         self.color = 'red'
         self.rotation = {
             0: [(0, -2), (1, -1), (0, 0), (1, 1)],
@@ -226,9 +226,9 @@ class ShapeZ(Shape):
 class ShapeS(Shape):
     """Class for shape S."""
 
-    def __init__(self, can, cell):
+    def __init__(self, can, cell, refresh_sec):
         """Initialize shape S."""
-        super(ShapeS, self).__init__(cell, can)
+        super(ShapeS, self).__init__(cell, can, refresh_sec)
         self.color = 'green'
         self.rotation = {
             0: [(2, 0), (1, -1), (0, 0), (-1, -1)],
@@ -262,9 +262,9 @@ class ShapeS(Shape):
 class ShapeSquare(Shape):
     """Class for shape square."""
 
-    def __init__(self, can, cell):
+    def __init__(self, can, cell, refresh_sec):
         """Initialize shape square."""
-        super(ShapeSquare, self).__init__(cell, can)
+        super(ShapeSquare, self).__init__(cell, can, refresh_sec)
         self.color = 'yellow'
 
         self.rotation = {

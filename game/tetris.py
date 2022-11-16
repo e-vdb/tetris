@@ -52,7 +52,8 @@ class Tetris:
         """Play."""
         while not self.game_over:
             try:
-                self.tetromino = Tetromino(self.can, self.cell)
+                self.tetromino = Tetromino(self.can, self.cell,
+                                           self.player.level)
                 self.tetromino.play()
                 self.fix_piece()
                 self.check_row()

@@ -19,7 +19,7 @@ class Player:
     def update_score(self, lines):
         """Update the score."""
         self.score += ((lines * 20) + 10*2**lines) * self.level
-        self.level = self.score // 500 + 1
+        self.level = min(self.score // 500 + 1, 5)
 
     def update_lines(self, full_lines):
         """Update the lines."""
