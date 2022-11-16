@@ -3,7 +3,7 @@
 import tkinter as tk
 from tetris import Tetris
 from stop_watch import StopWatch
-from score import Score
+from widget_gui import IntValue
 
 
 def start_game(tetris: Tetris, sw: StopWatch):
@@ -12,12 +12,14 @@ def start_game(tetris: Tetris, sw: StopWatch):
     tetris.game()
 
 
-def reset_game(tetris: Tetris, sw: StopWatch, score: Score):
+def reset_game(tetris: Tetris, sw: StopWatch, score: IntValue,
+               lines: IntValue) -> None:
     """Reset the game."""
     sw.Stop()
     sw.Reset()
     tetris.reinit()
     score.reset()
+    lines.reset()
 
 
 COLUMNS = 10
@@ -30,16 +32,21 @@ root = tk.Tk()
 sw = StopWatch(root)
 sw.grid(row=0, column=0, columnspan=2)
 
-score = Score(root)
-score.grid(row=1, column=0, columnspan=2)
+score = IntValue(root, label_text="Score")
+score.grid(row=1, column=2, columnspan=2)
 
+level = IntValue(root, label_text="Level", init_value=1)
+level.grid(row=2, column=2, columnspan=2)
+
+lines = IntValue(root, label_text="Lines")
+lines.grid(row=3, column=2, columnspan=2)
 
 main_frame = tk.Frame(root)
 main_frame.grid(row=2, column=1)
 canvas = tk.Canvas(main_frame, width=500, height=500)
-canvas.grid(row=1, column=2)
+canvas.grid(row=1, column=2, rowspan=2)
 
-tetris = Tetris(canvas, score)
+tetris = Tetris(canvas, score, lines, level)
 
 button_frame = tk.Frame(root)
 button_frame.grid(row=0, column=0)

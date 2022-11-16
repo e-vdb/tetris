@@ -15,7 +15,7 @@ LENGTH = 20
 class Tetris:
     """Class for Tetris."""
 
-    def __init__(self, can, score):
+    def __init__(self, can, score, lines, level):
         """Build the class."""
         self.can = can
         self.game_over = False
@@ -23,6 +23,8 @@ class Tetris:
         self.draw_grid()
         self.player = Player()
         self.score = score
+        self.lines = lines
+        self.level = level
 
     def init_cell(self):
         """Initialise the cell table."""
@@ -83,7 +85,10 @@ class Tetris:
                 self.cell.insert(0, [0 for _ in range(COLUMNS)])
                 full_rows += 1
         self.player.update_score(lines=full_rows)
+        self.player.update_lines(full_rows)
         self.score.update(self.player.score)
+        self.lines.update(self.player.lines)
+        self.level.update(self.player.level)
 
     def get_item_position(self, item):
         """Get cell position of an item."""
