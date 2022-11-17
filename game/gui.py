@@ -2,14 +2,19 @@
 
 import tkinter as tk
 from tetris import Tetris
+from exceptions import GameOver
 from stop_watch import StopWatch
 from widget_gui import IntValue
 
 
 def start_game(tetris: Tetris, sw: StopWatch):
     """Start the game."""
-    sw.Start()
-    tetris.game()
+    try:
+        sw.Start()
+        tetris.game()
+    except GameOver:
+        tetris.stop()
+        sw.Stop()
 
 
 def reset_game(tetris: Tetris, sw: StopWatch, score: IntValue,

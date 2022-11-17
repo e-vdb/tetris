@@ -4,7 +4,7 @@ import itertools
 
 from player import Player
 from tetrominoes import Tetromino
-from exceptions import GameOver
+
 
 COLUMNS = 10
 ROWS = 22
@@ -51,15 +51,10 @@ class Tetris:
     def game(self):
         """Play."""
         while not self.game_over:
-            try:
-                self.tetromino = Tetromino(self.can, self.cell,
-                                           self.player.level)
-                self.tetromino.play()
-                self.fix_piece()
-                self.check_row()
-            except GameOver:
-                self.stop()
-                break
+            self.tetromino = Tetromino(self.can, self.cell, self.player.level)
+            self.tetromino.play()
+            self.fix_piece()
+            self.check_row()
 
     def pause(self):
         """Pause the game (To do)."""
