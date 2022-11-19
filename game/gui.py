@@ -5,9 +5,12 @@ from tetris import Tetris
 from exceptions import GameOver
 from stop_watch import StopWatch
 from widget_gui import IntValue
+from stat_game import show_high_score, check_high_score
+from pathlib import Path
+from os.path import dirname, join
 
 
-def start_game(tetris: Tetris, sw: StopWatch):
+def start_game(tetris: Tetris, sw: StopWatch, score: IntValue):
     """Start the game."""
     try:
         sw.Start()
@@ -15,6 +18,7 @@ def start_game(tetris: Tetris, sw: StopWatch):
     except GameOver:
         tetris.stop()
         sw.Stop()
+        check_high_score(score.get())
 
 
 def reset_game(tetris: Tetris, sw: StopWatch, score: IntValue,
@@ -59,7 +63,7 @@ button_frame.grid(row=0, column=0)
 start_button = tk.Button(
     button_frame,
     text='Start',
-    command=lambda: start_game(tetris, sw)
+    command=lambda: start_game(tetris, sw, score)
 )
 start_button.grid(row=0, column=0)
 stop_button = tk.Button(
@@ -74,5 +78,18 @@ stop_button.grid(row=1, column=0)
 root.bind('<Left>', lambda event, x='left': tetris.tetromino.move(x))
 root.bind('<Right>', lambda event, x='right': tetris.tetromino.move(x))
 root.bind('<Up>', lambda event: tetris.tetromino.rotate())
+
+top = tk.Menu(root)
+root.config(menu=top)
+game_menu = tk.Menu(top, tearoff=False)
+top.add_cascade(label='Game', menu=game_menu)
+
+name = join(Path(dirname(__file__)).parent, 'data/highScore.gif')
+image_high_score = tk.PhotoImage(file=name)
+game_menu.add_command(label='Exit', command=root.destroy)
+game_menu.add_command(
+    label='Scores',
+    command=lambda: show_high_score(image_high_score)
+)
 
 root.mainloop()
