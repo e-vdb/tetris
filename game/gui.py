@@ -5,7 +5,7 @@ from tetris import Tetris
 from exceptions import GameOver
 from stop_watch import StopWatch
 from widget_gui import IntValue
-from stat_game import show_high_score, check_high_score
+from save_score import show_high_score, check_high_score
 from pathlib import Path
 from os.path import dirname, join
 
