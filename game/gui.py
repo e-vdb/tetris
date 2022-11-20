@@ -4,13 +4,14 @@ import tkinter as tk
 from tetris import Tetris
 from exceptions import GameOver
 from stop_watch import StopWatch
-from widget_gui import IntValue
+from widget_gui import IntValue, TextValueFrame
 from save_score import show_high_score, check_high_score
 from pathlib import Path
 from os.path import dirname, join
 
 
-def start_game(tetris: Tetris, sw: StopWatch, score: IntValue):
+def start_game(tetris: Tetris, sw: StopWatch, score: IntValue,
+               game_over: TextValueFrame) -> None:
     """Start the game."""
     try:
         sw.Start()
@@ -18,11 +19,13 @@ def start_game(tetris: Tetris, sw: StopWatch, score: IntValue):
     except GameOver:
         tetris.stop()
         sw.Stop()
+        game_over.update("Game Over")
         check_high_score(score.get())
 
 
 def reset_game(tetris: Tetris, sw: StopWatch, score: IntValue,
-               lines: IntValue, level: IntValue) -> None:
+               lines: IntValue, level: IntValue, game_over: TextValueFrame
+               ) -> None:
     """Reset the game."""
     sw.Stop()
     sw.Reset()
@@ -30,6 +33,7 @@ def reset_game(tetris: Tetris, sw: StopWatch, score: IntValue,
     score.reset()
     lines.reset()
     level.reset()
+    game_over.reset()
 
 
 COLUMNS = 10
@@ -41,6 +45,9 @@ root = tk.Tk()
 
 sw = StopWatch(root)
 sw.grid(row=0, column=0, columnspan=2)
+
+game_over_label = TextValueFrame(root, "")
+game_over_label.grid(row=1, column=0, columnspan=2)
 
 score = IntValue(root, label_text="Score")
 score.grid(row=1, column=2, columnspan=2)
@@ -63,13 +70,14 @@ button_frame.grid(row=0, column=0)
 start_button = tk.Button(
     button_frame,
     text='Start',
-    command=lambda: start_game(tetris, sw, score)
+    command=lambda: start_game(tetris, sw, score, game_over_label)
 )
 start_button.grid(row=0, column=0)
 stop_button = tk.Button(
     button_frame,
     text='Reset',
-    command=lambda: reset_game(tetris, sw, score, lines, level)
+    command=lambda: reset_game(tetris, sw, score, lines, level,
+                               game_over_label)
 )
 stop_button.grid(row=1, column=0)
 
