@@ -46,6 +46,7 @@ class Tetris:
         self.can.delete('all')
         self.cell = self.init_cell()
         self.draw_grid()
+        self.player.reset()
         self.game_over = False
 
     def game(self):
