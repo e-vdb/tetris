@@ -29,3 +29,25 @@ class IntValue(tk.Frame):
     def get(self):
         """Get the value."""
         return self.value.get()
+
+
+class TextValueFrame(tk.Frame):
+    """Implement a text value frame widget."""
+
+    def __init__(self, parent=None, init_text="", **kw):
+        """Initialize the class."""
+        tk.Frame.__init__(self, parent, kw)
+        self.text = tk.StringVar()
+        self.text.set(init_text)
+        self.init_text = init_text
+
+        self.text_lab = tk.Label(self, textvariable=self.text)
+        self.text_lab.pack(fill=tk.X, expand=tk.NO, pady=2, padx=2)
+
+    def update(self, new_value):
+        """Update the value."""
+        self.text.set(new_value)
+
+    def reset(self):
+        """Reset the value."""
+        self.text.set(self.init_text)
