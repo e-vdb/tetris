@@ -1,7 +1,7 @@
 """Module with classes for shapes."""
 
 from random import randint, choice
-from exceptions import GameOver
+from game.exceptions import GameOver
 import time
 
 

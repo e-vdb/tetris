@@ -2,8 +2,8 @@
 
 import itertools
 
-from player import Player
-from tetrominoes import Tetromino
+from game.player import Player
+from game.tetrominoes import Tetromino
 
 
 COLUMNS = 10
