@@ -2,7 +2,8 @@
 
 from random import choice
 import time
-from shapes import ShapeL, ShapeSquare, ShapeZ, ShapeI, ShapeJ, ShapeS, ShapeT
+from game.shapes import ShapeL, ShapeSquare, ShapeZ, ShapeI, ShapeJ, ShapeS,\
+    ShapeT
 
 
 all_shapes = [ShapeI, ShapeL, ShapeJ, ShapeSquare, ShapeZ, ShapeS, ShapeT]
