@@ -7,6 +7,7 @@ from game.exceptions import GameOver
 from game.stop_watch import StopWatch
 from game.widget_gui import IntValue, TextValueFrame
 from game.save_score import show_high_score, check_high_score
+from game.help_functions import about, print_rules
 from pathlib import Path
 from os.path import dirname, join
 
@@ -81,7 +82,9 @@ class Game(tk.Tk):
         top = tk.Menu(self)
         self.config(menu=top)
         game_menu = tk.Menu(top, tearoff=False)
+        help_menu = tk.Menu(top, tearoff=False)
         top.add_cascade(label='Game', menu=game_menu)
+        top.add_cascade(label='Help', menu=help_menu)
 
         name = join(Path(dirname(__file__)).parent, 'data/highScore.gif')
         image_high_score = tk.PhotoImage(file=name)
@@ -90,6 +93,9 @@ class Game(tk.Tk):
             label='Scores',
             command=lambda: show_high_score(image_high_score)
         )
+
+        help_menu.add_command(label='About', command=about)
+        help_menu.add_command(label='Rules', command=print_rules)
 
     def start_game(self) -> None:
         """Start the game."""
