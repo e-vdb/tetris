@@ -1,0 +1,8 @@
+Tetris
+
+Copyright (c) The Tetris Company
+
+
+MIT License
+Tkinter implementation of Tetris Game
+Copyright (c) 2022 Emeline Van der Beken
